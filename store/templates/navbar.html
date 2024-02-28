@@ -1,9 +1,9 @@
 <div>
     <ul id="navbar">
       <li><a href="{% url "index" %}">خانه</a></li>
-      <li><a href="shabakep.html">شبکه و نرم افزار</a></li>
-      <li><a href="graphicp.html">گرافیک</a></li>
-      <li><a href="hesabp.html">حسابداری</a></li>
+      <li><a href="{% url "category" "shabake" %}">شبکه و نرم افزار</a></li>
+      <li><a href="{% url "category" "graphic" %}">گرافیک</a></li> 
+      <li><a href="{% url "category" "hesabdari" %}">حسابداری</a></li>
       <li><a href="{% url "contact" %}">ارتباط با ما</a></li>
       {% if user.is_authenticated %}
       <li> <a href="{% url "logout" %}"> 

@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+
+    <!-- page1-header -->
+    {% if category.name == 'shabake' %}
+    <section id="page1-header">
+        <h2>شبکه و نرم افزار</h2>
+    </section>
+    {% elif category.name == 'hesabdari' %}
+    <section id="page3-header">
+      <h2>حسابداری</h2>
+    </section>
+    {% elif category.name == 'graphic' %}
+    <section id="page2-header">
+      <h2>گرافیک</h2>
+    </section>
+    {% endif %}
+    <!-- products -->
+    <section id="product1" class="section-p1">
+      {% if category.name == 'shabake' %}
+      <h2>محصولات رشته شبکه و نرم افزار</h2>
+      {% elif category.name == 'hesabdari' %}
+        <h2>محصولات رشته حسابداری</h2>
+      {% elif category.name == 'graphic' %}
+      <h2>محصولات رشته گرافیک</h2>
+      {% endif %}
+
+      <div class="listProduct">
+        {% for product in products %}
+          {% if product.discount %}
+            <!-- discount product -->
+          <div class="item" onclick="window.location.href='{% url 'product' product.id %}';">
+          <!-- product image -->
+          <img src="{{product.image.url}}" alt=""/>
+          <div class="des">
+          <!-- product name -->
+          <h5>{{ product.name }} 
+          <span class="offer">{{ product.sale_discount }}%</span>
+          </h5>
+          <!-- product Price -->
+          <h4 class="price-h4">
+            <span class="old-price"> {{ product.formatted_price  }} </span>
+            <span class="new-price"> {{ product.discounted_price }} تومان </span>
+          </h4>
+          </div>
+          <button class="addCart">
+            <span class="material-symbols-outlined cart">
+              shopping_cart
+              </span>
+          </button>
+          </div>
+            {% else %}
+            <div class="item" onclick="window.location.href='{% url 'product' product.id %}';">
+              <!-- product image -->
+              <img src="{{product.image.url}}" alt="product image"/>
+              <div class="des">
+              <!-- product name -->
+              <h5>{{ product.name }} </h5>
+              <!-- product Price -->
+              <h4 class="price-h4"> <span> {{ product.formatted_price }} تومان </span> </h4>
+              </div>
+              <button class="addCart">
+                <span class="material-symbols-outlined cart">
+                  shopping_cart
+                  </span>
+              </button>
+              </div>
+              {% endif %}
+        {% endfor %}
+      </div>
+    </section>  
+
+    <section id="pagination" class="section-p1" dir="ltr">
+        <a class="active" href="shabakep.html">1</a>
+        <a href="shabakep2.html">2</a>
+        <a href="shabakep2.html"><i class="fa-solid fa-arrow-right"></i></a>
+    </section>
+
+
+    {% endblock %}

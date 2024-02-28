@@ -5,9 +5,9 @@
     <section>
       <div class="box-slider big-slider">
         <div class="owl-carousel owl-theme">
-          <div class="item" data-href="hesabp.html"><img src="{% static 'img/banner/bannermain2.png' %}" alt="حسابداری"></div>
-          <div class="item" data-href="shabakep.html"><img src="{% static 'img/banner/bannermain.png' %}" alt="شبکه و نرم افزار"></div>
-          <div class="item" data-href="graphicp.html"><img src="{% static 'img/banner/bannermain3.png' %}" alt="گرافیک"></div>
+          <div class="item" data-href="{% url "category" "hesabdari" %}"><img src="{% static 'img/banner/bannermain2.png' %}" alt="حسابداری"></div>
+          <div class="item" data-href="{% url "category" "shabake" %}"><img src="{% static 'img/banner/bannermain.png' %}" alt="شبکه و نرم افزار"></div>
+          <div class="item" data-href="{% url "category" "graphic" %}"><img src="{% static 'img/banner/bannermain3.png' %}" alt="گرافیک"></div>
         </div>
       </div>
     </section>

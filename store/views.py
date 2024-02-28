@@ -1,5 +1,6 @@
+from math import e
 from django.shortcuts import render , redirect
-from .models import Product
+from .models import Category, Product
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -7,6 +8,19 @@ from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 from django import forms
 
+
+def category(request, foo):
+    # remove spaces (if there is any)
+    foo = foo.replace('-',' ')
+    #grab category from name
+    try:
+        # look up the category
+        category = Category.objects.get(name=foo)
+        products = Product.objects.filter(category=category)
+        return render(request,'category.html', {'products':products, 'category':category})
+    except:
+        messages.error(request, 'دسته بندی مورد نظر یافت نشد')
+        return redirect('index')
 
 def product(request, pk):
     product = Product.objects.get(id=pk)
@@ -46,22 +60,43 @@ def register_user(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
-            # Check if username or email already exists
+            # Save the form to create the user
+            form.save()
+            # Extract username and password
             username = form.cleaned_data['username']
             password = form.cleaned_data['password1']
-            form.save()
-            # Login user
+            # login the user
             user = authenticate(username=username, password=password)
             login(request, user)
             messages.success(request, 'حساب کاربری شما با موفقیت ساخته شد!')
             return redirect('index')
         else:
-            messages.error(request, 'نام کاربری قابل استفاده نیست')
+            # Debugging: Print form errors
+            print(form.errors)
+            if 'username' in form.errors:
+                messages.error(request, 'نام کاربری تکراری است .')
+            if 'password2' in form.errors:
+                password_errors = form.errors['password2']
+                for error in password_errors:
+                    # Check for specific error messages in English and convert them to Persian
+                    if 'match' in error:
+                        messages.error(request, 'رمز های عبور با هم مطابقت ندارند.')
+                    elif 'short' in error:
+                        messages.error(request, 'رمز عبور باید حداقل ۸ کاراکتر داشته باشد.')
+                    elif 'common' in error:
+                        messages.error(request, 'این رمز عبور بسیار ساده است.')
+                    elif 'numeric' in error:
+                        messages.error(request, 'این رمز فقط شامل اعداد است لطفا از کلمات نیز استفاده کنید')
+
+            # If form is not valid, display error message and return with the form
             return render(request, 'register.html', {'form': form})
+    else :
+        # Debugging: Print GET request
+        print("GET request received")
+        # If it's a GET request or form is not valid, render the form
+        return render(request,'register.html', {'form': form})
 
 
-    else:
-        return render(request,'register.html', {'form':form})
     
 
 
