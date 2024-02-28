@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <!-- slider -->
+    <section>
+      <div class="box-slider big-slider">
+        <div class="owl-carousel owl-theme">
+          <div class="item" data-href="hesabp.html"><img src="{% static 'img/banner/bannermain2.png' %}" alt="حسابداری"></div>
+          <div class="item" data-href="shabakep.html"><img src="{% static 'img/banner/bannermain.png' %}" alt="شبکه و نرم افزار"></div>
+          <div class="item" data-href="graphicp.html"><img src="{% static 'img/banner/bannermain3.png' %}" alt="گرافیک"></div>
+        </div>
+      </div>
+    </section>
+    <section>
+      <div class="box-slider small-slider">
+        <div class="owl-carousel owl-theme">
+          <div class="item" data-href="shabakep.html"><img src="{% static '/img/banner/bannersecond1.png' %}" alt="شبکه و نرم افزار"></div>
+          <div class="item" data-href="hesabp.html"><img src="{% static '/img/banner/bannersecond2.png' %}" alt="حسابداری"></div>
+          <div class="item" data-href="graphicp.html"><img src="{% static '/img/banner/bannersecond3.png' %}" alt="گرافیک"></div>
+        </div>
+      </div>
+    </section>
+    <!-- end slider -->
+    <!-- first products -->
+    <section id="product1" class="section-p1">
+      <h2>محصولات پر فروش</h2>
+      <p>همراه با ضمانت 7 روزه!</p>
+      <div class="listProduct">
+        {% for product in products %}
+          {% if product.discount %}
+            <!-- discount product -->
+          <div class="item" onclick="window.location.href='{% url 'product' product.id %}';">
+          <!-- product image -->
+          <img src="{{product.image.url}}" alt=""/>
+          <div class="des">
+          <!-- product name -->
+          <h5>{{ product.name }} 
+          <span class="offer">{{ product.sale_discount }}%</span>
+          </h5>
+          <!-- product Price -->
+          <h4 class="price-h4">
+            <span class="old-price"> {{ product.formatted_price  }} </span>
+            <span class="new-price"> {{ product.discounted_price }} تومان </span>
+          </h4>
+          </div>
+          <button class="addCart">
+            <span class="material-symbols-outlined cart">
+              shopping_cart
+              </span>
+          </button>
+          </div>
+            {% else %}
+            <div class="item" onclick="window.location.href='{% url 'product' product.id %}';">
+              <!-- product image -->
+              <img src="{{product.image.url}}" alt="product image"/>
+              <div class="des">
+              <!-- product name -->
+              <h5>{{ product.name }} </h5>
+              <!-- product Price -->
+              <h4 class="price-h4"> <span> {{ product.formatted_price }} تومان </span> </h4>
+              </div>
+              <button class="addCart">
+                <span class="material-symbols-outlined cart">
+                  shopping_cart
+                  </span>
+              </button>
+              </div>
+              {% endif %}
+        {% endfor %}
+      </div>
+    </section>
+    <!-- firt prodects DONE-->
+  <section id="banner" class="section-m1">
+    <h4>جشنواره ویژه ی نوروز شروع شد!</h4>
+    <h2> تا <span>60% </span>تخفیف در جشنواره نوروز </h2>
+    <button class="banner" onclick="redirectToOfferPage()">دیدن محصولات جشنواره</button>  
+    <script>
+      function redirectToOfferPage() {
+        window.location.href = 'offer.html';
+      }
+    </script>
+  </section>
+  <!-- second products -->
+      <section id="product2" class="section-p1">
+        <h2>محصولات پیشنهادی</h2>
+        <div class="listProduct" data-start="43" data-end="50" onclick="window.location.href='productpage.html';">
+            <div class="item">
+            <img src="img/graphic/photoshop.jpg" alt=""/>
+            <div class="des">
+            <h5>محصول نمونه</h5>
+            <h4>100,000 تومان</h4>
+            </div>
+            <button class="addCart">
+              <span class="material-symbols-outlined cart">
+                shopping_cart
+                </span>
+            </button>
+            </div>
+        </div>
+      </section>
+  <!-- second products DONE -->
+{% endblock %}

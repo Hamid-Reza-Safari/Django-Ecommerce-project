@@ -1,0 +1,116 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+	<meta charset="utf-8">
+	<meta name="author" content="Kodinger">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Shahid Beheshty</title>
+    <link rel="stylesheet" href="{% static 'login/css/bootstrap.min.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'login/css/login.css' %}" />
+</head>
+<body class="login-page">
+		{% for message in messages %}
+		<div class="alert alert-warning alert-dismissible fade show" role="alert">
+			{{message}}
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		{% endfor %}
+	<section class="h-100">
+		<div class="container h-100">
+			<div class="row justify-content-md-center h-100">
+				<div class="card-wrapper">
+					<div class="brand">
+						<a href="/index.html"><img src="{% static "img/logo.png" %}" alt="logo" /></a>
+					</div>
+					<div class="card fat">
+						<div class="card-body">
+							<h4 class="card-title">ثبت نام</h4>
+							<form method="POST" class="my-login-validation" novalidate="" action="{% url 'register' %}" dir="ltr">
+								{% csrf_token %}
+
+								<div class="form-group">
+									<label for="username">نام کاربری</label>
+									{{ form.username}}
+									<div class="invalid-feedback">
+										نام کاربری الزامی است
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="first_name">نام</label>
+									{{ form.first_name }}
+									<div class="invalid-feedback">
+										نام شما چیست ؟
+									</div>
+								</div>
+								
+
+								<div class="form-group">
+									<label for="last_name">نام خانوادگی</label>
+									{{ form.last_name }}
+									<div class="invalid-feedback">
+										نام خانوادگی شما چیست ؟
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="email">آدرس ایمیل</label>
+									{{ form.email }}
+									<div class="invalid-feedback">
+										آدرس ایمیل معتبر نمی باشد
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="password">رمز عبور</label>
+									{{ form.password1 }}
+									<div class="invalid-feedback">
+										رمز عبور الزامی است
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="password">تایید رمز عبور</label>
+									{{ form.password2 }}
+									<div class="invalid-feedback">
+										تایید رمز عبور الزامی است
+									</div>
+								</div>
+
+								<div class="form-group">
+									<div class="custom-checkbox custom-control">
+										<input type="checkbox" name="agree" id="agree" class="custom-control-input" required="">
+										<label for="agree" class="custom-control-label">بنده بر ایمیل خود دسترسی کامل دارم</label>
+										<div class="invalid-feedback">
+											شما باید به ایمیل حساب کاربری خود دسترسی کامل داشته باشید
+										</div>
+									</div>
+								</div>
+
+								<div class="form-group m-0">
+									<button type="submit" class="btn btn-primary btn-block">
+										ثبت نام
+									</button>
+								</div>
+								<div class="mt-4 text-center">
+									از قبل حساب کاربری ساخته اید ؟ <a href="login.html">ورود</a>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="footer">
+						کپی رایت &copy; 2024 &mdash; هنرستان شهید بهشتی 
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="{% static 'login/js/my-login.js' %}"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</body>
+</html>

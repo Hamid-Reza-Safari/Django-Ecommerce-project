@@ -1,0 +1,88 @@
+{%extends 'base.html'%} 
+  {%block content%}
+ <section id="page4-header">
+      <h2>ارتباط با ما</h2>
+      <p>هنرستان شهید بهشتی</p>
+    </section>
+
+    <!--Body-->
+    <section id="contact-details" class="section-p1">
+      <div class="details">
+        <h2>آدرس و راه های ارتباطی با هنرستان شهید بهشتی</h2>
+        <h3>راه های ارتباطی</h3>
+        <div>
+          <li>
+            <i class="fa-regular fa-map"></i>
+            <p>مازندران آمل دریای 43 (کوچه ی قند مازند)</p>
+          </li>
+          <li>
+            <i class="fa-regular fa-envelope"></i>
+            <p>shahidbeheshty@gmail.com</p>
+          </li>
+          <li>
+            <i class="fa-regular fa-address-book"></i>
+            <p dir="ltr">011 44283076</p>
+          </li>
+          <li>
+            <i class="fa-regular fa-clock"></i>
+            <p>روز های کاری از ساعت 7 صبح تا 2 ظهر</p>
+          </li>
+        </div>
+      </div>
+      <div class="map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d801.948658314125!2d52.3416339923179!3d36.48667599216083!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8fa28cba568601%3A0x7c56f983bd0d844!2z2YfZhtix2LPYqtin2YYg2LTZh9uM2K8g2KjZh9i02KrbjCDYotmF2YQ!5e0!3m2!1sen!2snl!4v1708363484508!5m2!1sen!2snl"
+          width="600"
+          height="450"
+          style="border: 0"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </div>
+    </section>
+    <section id="productF" class="section-p1">
+      <div class="listProduct" data-start="1" data-end="3">
+      </div>
+    </section>
+    <!--Form-->
+    <section id="form-details">
+      <form id="myForm">
+        <span>برای ما پیام بفرستید!</span>
+        <h2>در صورت تمایل می توانید از اینجا با ما ارتباط برقرار کنید</h2>
+        <input id="nameInput" type="text" placeholder="نام">
+        <input id="emailInput1" type="text" placeholder="ایمیل">
+        <input id="subjectInput" type="text" placeholder="موضوع">
+        <textarea id="messageInput" name="" cols="30" rows="10" placeholder="پیام شما"></textarea>
+        <button class="normal" onclick="clearInputs(); return false;">ارسال</button>
+      </form>
+      <script>
+        function clearInputs() {
+          document.getElementById('nameInput').value = ''; // Clearing the name input field
+          document.getElementById('emailInput1').value = ''; // Clearing the email input field
+          document.getElementById('subjectInput').value = ''; // Clearing the subject input field
+          document.getElementById('messageInput').value = ''; // Clearing the message input field
+        }
+      </script>
+      <div id="people" class="people">
+        <div >
+          <img class="img" src="img/people/pe1.png">
+          <p><span>نماینده هنرجویان رشته کامپیوتر</span><br>
+            شماره تماس : 9876543210<br>
+            ایمیل : example@gmail.com</p>
+        </div>
+        <div >
+          <img class="img" src="img/people/pe2.jpg">
+          <p><span>نماینده هنرجویان رشته گرافیک</span><br>
+            شماره تماس : 9876543210<br>
+            ایمیل : example@gmail.com</p>
+        </div>
+        <div >
+          <img class="img"  src="img/people/pe3.png">
+          <p><span>نماینده هنرجویان رشته حسابداری</span><br>
+            شماره تماس : 9876543210<br>
+            ایمیل : example@gmail.com</p>
+        </div>
+      </div>
+    </section>
+    {% endblock %}

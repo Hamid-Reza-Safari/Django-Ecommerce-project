@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+    <section id="prodetails" class="section-p1">
+      <div class="single-pro-image">
+        <img src="{{ product.image.url }}" width="100%" id="MainImg" alt="product">
+      </div>
+      <!-- Details -->
+      <div class="single-pro-details">
+        <!-- product name -->
+        <h4> {{ product.name }} </h4>
+        {% if product.discount %}
+        <!-- product price -->
+        <h3 class="old-price">   {{ product.formatted_price}} تومان</h3>
+        <h2> <span class="new-price"> {{ product.discounted_price }}</span>  تومان  </h2>
+        {% else %}
+        <h2> {{ product.formatted_price  }} تومان</h2>
+        {% endif %}
+        <button class="normal">اضافه به سبد خرید</button>
+        <h4 class="eteleat">اطلاعات محصول</h4>
+        <!-- product description -->
+        <span class="about-mahsool"> {{ product.description }} </span>
+      </div>
+    </section>
+
+  <!--Other prodecuts-->
+
+{% endblock %}

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shahid Beheshty</title>
+    <link rel="stylesheet" href="dist/assets/owl.carousel.min.css" />
+    <link rel="stylesheet" href="dist/assets/owl.theme.default.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"/>
+    <link rel="icon" type="image/x-icon" href="img/favicon.ico" />
+  </head>
+  <body class="">
+    <!-- scripts -->
+    <script src="javascript/jquery-3.7.1.min.js"></script>
+    <script src="dist/owl.carousel.min.js"></script>
+    <script src="javascript/main.js"></script>
+    <script src="script.js"></script>
+    <script src="cart.js"></script>
+    <script src="https://kit.fontawesome.com/6f5725f16e.js" crossorigin="anonymous"></script>
+    <!-- end scripts -->
+    <!-- header -->
+    <button id="back-to-top-btn" title="بازگشت به بالا">
+      <span class="material-symbols-outlined">arrow_upward</span>
+    </button>    
+    <section id="header">
+      <a href="index.html" id="logo"
+        ><img src="img/logo.png" class="logo" alt="logo photo"
+      /></a>
+      <div>
+        <ul id="navbar">
+          <li><a href="index.html">خانه</a></li>
+          <li><a href="shabakep.html">شبکه و نرم افزار</a></li>
+          <li><a href="graphicp.html">گرافیک</a></li>
+          <li><a class="active" href="hesabp.html">حسابداری</a></li>
+          <li><a href="contact.html">ارتباط با ما</a></li>
+          <li><a href="login/login.html"><i class="fa-regular fa-user profile"></i></a></li>
+          <li id="search-li"><span class="search-icon material-symbols-outlined">search</span></li>
+          <li class="cart">
+            <a><span id="cart_icon" class="material-symbols-outlined">
+              shopping_cart
+              </span>
+            <span id="icon-span" class="icon-cart-span">0</span>
+            </a>
+            </li> 
+          </ul>
+        </div>
+        <!-- Search Box -->
+        <div id="search-overlay">
+          <div id="search-box">
+            <span class="search-icon material-symbols-outlined">search</span>
+            <input class="search-input" type="search" placeholder="جستوجو کنید">
+            <span id="close-search" class="material-symbols-outlined">close</span>
+          </div>
+        </div>
+        <!--Cart Tab -->
+        <section>
+        <div class="cartTab">
+          <h1>سبد خرید</h1>
+          <div class="listCart">
+              <div class="item">
+              </div>
+          </div>
+          <div class="btn">
+            <button class="checkout">ثبت سفارش</button>
+            <button class="close">بستن</button>
+          </div>
+        </div>
+      </section>
+      <!-- hamburger menu -->
+      <div id="mobile">
+        <span class="search-icon2 material-symbols-outlined">search</span>
+        <div id="bar" class="hamburger">
+          <div class="bar"></div>
+          <div class="bar"></div>
+          <div class="bar"></div>
+        </div>
+      </div> 
+      <div id="mobile_cart_container">
+        <a><span id="mobile_cart" class="material-symbols-outlined">
+          shopping_cart
+          </span>
+          <span id="icon-span-mobile">0</span>
+        </a>
+        </div>
+    </section>
+    <!-- end headers -->
+    <section id="page3-header">
+        <h2>حسابداری</h2>
+    </section>
+    <!-- products -->
+    <section id="product1" class="section-p1">
+      <div class="listProduct" data-start="43" data-end="48">
+          <div class="item" onclick="window.location.href='productmale.html';">
+          <img src="img/hesabDari/calculator.jpg" alt=""/>
+          <div class="des">
+          <h5>محصول نمونه</h5>
+          <h4>100,000 تومان</h4>
+          </div>
+          <button class="addCart">
+            <span class="material-symbols-outlined cart">
+              shopping_cart
+              </span>
+          </button>
+          </div>
+      </div>
+    </section>  
+
+
+    <section id="pagination" class="section-p1" dir="ltr">
+      <a href="hesabp.html"><i class="fa-solid fa-arrow-left"></i></a>
+      <a href="hesabp.html">1</a>
+      <a class="active" href="hesabp2.html">2</a>
+    </section>
+
+
+  <!--Email -->
+  <section id="newsletter" class="section-p1 section-m1">
+    <div class="newstext">
+      <h4>از تخفیف ها با خبر شوید</h4>
+      <p>ایمیلتو بهمون بده که از <span>تخفیف ها </span>و محصولات جدید با خبرت کنیم. </p>
+    </div>
+    <div class="form">
+      <input id="emailInput" type="text" placeholder="آدرس ایمیل شما" dir="ltr">
+      <button class="normal" onclick="clearInput()">ثبت</button>
+    </div>
+    <script>
+        function clearInput() {
+          document.getElementById('emailInput').value = ''; // Clearing the input field
+        }
+      </script>
+  </section>
+  <!-- Footer -->
+  <footer class="section-p1" id="footer">
+    <img src="img/footerlogo.png" alt="" class="footer-logo">
+    <div class="col">
+        <h4>ارتباط با ما</h4>
+        <p><strong>آدرس :</strong>مازندران آمل دریای 43 (کوچه ی قند مازند)</p>
+        <p><strong dir="rtl">شماره تماس : </strong> <span dir="ltr">011 44283076</span></p>
+        <p><strong dir="rtl">ساعات کاری : </strong>روز های کاری از ساعت 7 صبح تا 2 ظهر</p>
+      <div class="follow">
+        <h4>شبکه های اجتماعی ما</h4>
+        <div id="footer-icon">
+          <i class="fa-brands fa-facebook footer-ico"></i>
+          <i class="fa-brands fa-twitter footer-ico"></i>
+          <i class="fa-brands fa-instagram footer-ico"></i>
+          <i class="fa-brands fa-tiktok footer-ico"></i>
+          <i class="fa-solid fa-envelope footer-ico"></i>
+        </div>
+      </div>
+    </div>
+    <div class="col about">
+    <h4>درباره ما</h4>
+    <p class="about-p">هنرستان دولتی شهید بهشتی در سال 1361 تاسیس شده و تا به کنون جز برترین هنرستان های شهرستان آمل است و به فعالیت های فرهنگی آموزشی خود ادامه میدهید</p>
+    </div>
+    <div class="col">
+      <div id="namad">
+        <img class="icon" src="img/c4-1.png" alt="">
+        <img id="anjoman" class="icon" src="img/c5-1.png" alt="">
+        <img class="icon" id="enamad" src="img/enamad.png" alt="">
+      </div>
+    </div>
+  <div id="copyright">
+    <p>کلیه حقوق مادی و معنوی این سایت متعلق به هنرستان شهید بهشتی است <strong>©</strong></p>
+  </div>
+  </footer>
+  </body>
+      
+</html>

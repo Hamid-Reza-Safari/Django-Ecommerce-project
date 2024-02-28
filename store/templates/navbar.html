@@ -1,0 +1,26 @@
+<div>
+    <ul id="navbar">
+      <li><a href="{% url "index" %}">خانه</a></li>
+      <li><a href="shabakep.html">شبکه و نرم افزار</a></li>
+      <li><a href="graphicp.html">گرافیک</a></li>
+      <li><a href="hesabp.html">حسابداری</a></li>
+      <li><a href="{% url "contact" %}">ارتباط با ما</a></li>
+      {% if user.is_authenticated %}
+      <li> <a href="{% url "logout" %}"> 
+        <span class="material-symbols-outlined logout">
+          logout
+        </span> 
+        </a></li>
+      {% else %}
+      <li><a href="{% url "login" %}"><i class="fa-regular fa-user profile"></i></a></li>
+      {% endif %}
+      <li id="search-li"><span class="search-icon material-symbols-outlined">search</span></li>
+      <li class="cart">
+      <a><span id="cart_icon" class="material-symbols-outlined">
+        shopping_cart
+        </span>
+      <span id="icon-span" class="icon-cart-span">0</span>
+      </a>
+      </li>
+    </ul>
+  </div>
