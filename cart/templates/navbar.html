@@ -10,7 +10,7 @@
         <span class="material-symbols-outlined logout">
           logout
         </span> 
-        </a></li>
+        </a></li> 
       {% else %}
       <li><a href="{% url "login" %}"><i class="fa-regular fa-user profile"></i></a></li>
       {% endif %}
@@ -19,7 +19,7 @@
       <a><span id="cart_icon" class="material-symbols-outlined">
         shopping_cart
         </span>
-      <span id="icon-span" class="icon-cart-span">0</span>
+      <span id="icon-span" class="icon-cart-span"> {{ cart|length }}  </span>
       </a>
       </li>
     </ul>

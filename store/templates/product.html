@@ -16,7 +16,7 @@
         {% else %}
         <h2> {{ product.formatted_price  }} تومان</h2>
         {% endif %}
-        <button class="normal">اضافه به سبد خرید</button>
+        <button type="button" class="normal" value="{{ product.id }}" id="add-cart" >اضافه به سبد خرید</button>
         <h4 class="eteleat">اطلاعات محصول</h4>
         <!-- product description -->
         <span class="about-mahsool"> {{ product.description }} </span>
@@ -24,5 +24,32 @@
     </section>
 
   <!--Other prodecuts-->
+ 
+    <script>
+      // check for button press 
+      $(document).on('click' , '#add-cart', function(e) {
+        e.preventDefault();
+        $.ajax({
+          type: 'POST',
+          url: '{% url "cart_add" %}',
+          data: { 
+            product_id: $('#add-cart').val(),
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action : 'post'
+          },
+          success : function(json) {
+            // console.log(json);
+            document.getElementById("icon-span").textContent = json.qty;
+          },
+          
+          error: function(xhr, errmsg, err) {
+
+          }
+
+        });
+
+      })
+    </script>
+
 
 {% endblock %}

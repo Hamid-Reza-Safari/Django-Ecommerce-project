@@ -255,11 +255,11 @@ body.showCart .cartTab {
 .cartTab {
   color: #000;
 }
-.cartTab .btn {
+.cartTab .cartbtn {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
 }
-.cartTab .btn button {
+.cartTab .cartbtn button {
   color: #eee;
   background-color: #04683e;
   border: none;
@@ -268,7 +268,7 @@ body.showCart .cartTab {
   font-size: 18px;
   cursor: pointer;
 }
-.cartTab .btn .close {
+.cartTab .cartbtn .close {
   color: #eee;
   background-color: #000000;
 }

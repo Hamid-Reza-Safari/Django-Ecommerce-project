@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% load static %}
-{% block content %}
+{% block content %} 
     <!-- slider -->
     <section>
       <div class="box-slider big-slider">
@@ -29,7 +29,7 @@
         {% for product in products %}
           {% if product.discount %}
             <!-- discount product -->
-          <div class="item" onclick="window.location.href='{% url 'product' product.id %}';">
+          <div class="item"  data-href="{% url 'product' product.id %}">
           <!-- product image -->
           <img src="{{product.image.url}}" alt=""/>
           <div class="des">
@@ -43,14 +43,14 @@
             <span class="new-price"> {{ product.discounted_price }} تومان </span>
           </h4>
           </div>
-          <button class="addCart">
+          <button type="button" class="addCart" value="{{ product.id }}" id="add-cart">
             <span class="material-symbols-outlined cart">
               shopping_cart
               </span>
           </button>
           </div>
             {% else %}
-            <div class="item" onclick="window.location.href='{% url 'product' product.id %}';">
+            <div class="item"  data-href="{% url 'product' product.id %}">
               <!-- product image -->
               <img src="{{product.image.url}}" alt="product image"/>
               <div class="des">
@@ -59,7 +59,7 @@
               <!-- product Price -->
               <h4 class="price-h4"> <span> {{ product.formatted_price }} تومان </span> </h4>
               </div>
-              <button class="addCart">
+              <button class="addCart" id="add-cart" value="{{ product.id }}">
                 <span class="material-symbols-outlined cart">
                   shopping_cart
                   </span>
@@ -99,4 +99,45 @@
         </div>
       </section>
   <!-- second products DONE -->
+
+  <script>
+    $(document).ready(function() {
+      // Handle add to cart button click
+      $(document).on('click', '.addCart', function(e) {
+        e.preventDefault(); // Prevent default action
+        e.stopPropagation(); // Stop event propagation to prevent parent click event
+        var productId = $(this).val(); // Get the value of the clicked button
+        $.ajax({
+          type: 'POST',
+          url: '{% url "cart_add" %}',
+          data: { 
+            product_id: productId,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+          },
+          success: function(json) {
+            // Update cart icon or any other action you want
+            document.getElementById("icon-span").textContent = json.qty;
+          },
+          error: function(xhr, errmsg, err) {
+            // Handle error if needed
+          }
+        });
+      });
+  
+      // Handle navigation to product page
+      $(document).on('click', '.item', function(e) {
+        // Check if the click is not from the addCart button
+        if (!$(e.target).hasClass('addCart')) {
+          var productUrl = $(this).data('href'); // Get the product URL
+          window.location.href = productUrl; // Navigate to the product page
+        }
+      });
+    });
+  </script>
+  
+  
+  
+  
+  
 {% endblock %}

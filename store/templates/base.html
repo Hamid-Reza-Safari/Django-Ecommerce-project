@@ -17,7 +17,6 @@
     <script src="{% static 'javascript/main.js' %}"></script>
     <script src="{% static 'script.js' %}"></script>
     <script src="{% static 'cart.js' %}"></script>
-    <script src="{% static 'cart.js' %}"></script>
     <script src="https://kit.fontawesome.com/6f5725f16e.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- end scripts -->
@@ -28,7 +27,7 @@
       <span class="material-symbols-outlined">arrow_upward</span>
     </button>
     <section id="header">
-      <a href="index.html" id="logo" ><img src="{% static "img/logo.png" %}" class="logo" alt="logo photo"/></a>
+      <a href="{% url "index" %}" id="logo" ><img src="{% static "img/logo.png" %}" class="logo" alt="logo photo"/></a>
       <!-- navbar -->
       {% include 'navbar.html' %}
 
@@ -42,14 +41,35 @@
         </div>
       </div>
       <!--Cart Tab -->
-      <section>
-      <div class="cartTab">
+      <section >
+      <div class="cartTab" >
         <h1>سبد خرید</h1> 
-        <div class="listCart">
-            <div class="item">
+        <div class="listCart" >
+          {% if cart_products %}
+          {% for product in cart_products %}
+            <div class="item" >
+              <div class="image">
+                <img src="{{ product.image.url }}" alt=""/>
+                </div>
+              <div class="name">
+                {{ product.name }}
+                </div>
+              <div class="totalPrice">
+                {% if product.discount %}
+                {{ product.discounted_price }} تومان
+                {% else %}
+                {{ product.formatted_price  }} تومان
+                {% endif %}
+              </div>
             </div>
+            {% endfor %}
+          {% else %}
+          <div class="name">
+            محصولی در سبد خرید موجود نیست.
+            </div>
+          {% endif %}
         </div>
-        <div class="btn">
+        <div class="cartbtn">
           <button class="checkout">ثبت سفارش</button>
           <button class="close">بستن</button>
         </div>
@@ -157,3 +177,4 @@
   </body>
       
 </html>
+
