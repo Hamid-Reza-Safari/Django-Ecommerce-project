@@ -152,6 +152,8 @@
                   document.getElementById("icon-span").textContent = json.qty;
                   // Update cart summary
                   updateCartSummary();
+                  location.reload();
+
               },
               error: function(xhr, errmsg, err) {
                   // Handle error if needed
@@ -159,10 +161,9 @@
           });
       });
   
-      // Handle navigation to product page
+      // Handle navigation to product page only if clicked outside the cart tab
       $(document).on('click', '.item', function(e) {
-          // Check if the click is not from the addCart button
-          if (!$(e.target).hasClass('addCart')) {
+          if (!$(this).closest('.cartTab').length) {
               var productUrl = $(this).data('href'); // Get the product URL
               window.location.href = productUrl; // Navigate to the product page
           }
@@ -172,7 +173,6 @@
       attachCheckoutHandler();
       attachCloseHandler();
   });
-  
   </script>
   
   

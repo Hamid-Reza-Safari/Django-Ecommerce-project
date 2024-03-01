@@ -43,6 +43,7 @@
           // console.log(json);
           document.getElementById("icon-span").textContent = json.qty;
           updateCartSummary(); // Call the function to update cart summary
+          location.reload();
         },
         
         error: function(xhr, errmsg, err) {

@@ -95,6 +95,8 @@
             success: function(json) {
               // Update cart icon or any other action you want
               document.getElementById("icon-span").textContent = json.qty;
+              location.reload();
+
             },
             error: function(xhr, errmsg, err) {
               // Handle error if needed
@@ -102,14 +104,20 @@
           });
         });
     
-        // Handle navigation to product page
-        $(document).on('click', '.item', function(e) {
-          // Check if the click is not from the addCart button
-          if (!$(e.target).hasClass('addCart')) {
+      // Handle navigation to product page only if clicked outside the cart tab
+      $(document).on('click', '.item', function(e) {
+        if (!$(this).closest('.cartTab').length) {
             var productUrl = $(this).data('href'); // Get the product URL
             window.location.href = productUrl; // Navigate to the product page
-          }
-        });
+        }
+    });
+
+              // Prevent navigation when clicking on items inside the cart tab
+      $(document).on('click', '.cartTab .item', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        // Add your logic here if needed
+    });
       });
     </script>
 
