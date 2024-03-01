@@ -40,44 +40,10 @@
           <span id="close-search" class="material-symbols-outlined">close</span>
         </div>
       </div>
-      <!--Cart Tab -->
-      <section >
-      <div class="cartTab" >
-        <h1>سبد خرید</h1> 
-        <div class="listCart" >
-          {% if cart_products %}
-          {% for product in cart_products %}
-            <div class="item" >
-              <div class="image">
-                <img src="{{ product.image.url }}" alt=""/>
-                </div>
-              <div class="name">
-                {{ product.name }}
-                </div>
-              <div class="totalPrice">
-                {% if product.discount %}
-                {{ product.discounted_price }} تومان
-                {% else %}
-                {{ product.formatted_price  }} تومان
-                {% endif %}
-              </div>
-            </div>
-            {% endfor %}
-          {% else %}
-          <div class="name">
-            محصولی در سبد خرید موجود نیست.
-            </div>
-          {% endif %}
-        </div>
-        <div class="cartbtn">
-          <button class="checkout">ثبت سفارش</button>
-          <button class="close">بستن</button>
-        </div>
-        <div class="total-all-price">
-          <strong>مجموع:</strong>
-        </div>
-      </div>
-    </section>
+      <!-- End Search Box -->
+
+      <!-- cart -->
+      {% include 'cart_summary.html' %}
 
       <!-- hamburger menu -->
       <div id="mobile">

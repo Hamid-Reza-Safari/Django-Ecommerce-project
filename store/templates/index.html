@@ -5,18 +5,18 @@
     <section>
       <div class="box-slider big-slider">
         <div class="owl-carousel owl-theme">
-          <div class="item" data-href="{% url "category" "hesabdari" %}"><img src="{% static 'img/banner/bannermain2.png' %}" alt="حسابداری"></div>
-          <div class="item" data-href="{% url "category" "shabake" %}"><img src="{% static 'img/banner/bannermain.png' %}" alt="شبکه و نرم افزار"></div>
-          <div class="item" data-href="{% url "category" "graphic" %}"><img src="{% static 'img/banner/bannermain3.png' %}" alt="گرافیک"></div>
+          <div class="item" data-href="{% url "category" "حسابداری" %}"><img src="{% static 'img/banner/bannermain2.png' %}" alt="حسابداری"></div>
+          <div class="item" data-href="{% url "category" "شبکه و نرم افزار" %}"><img src="{% static 'img/banner/bannermain.png' %}" alt="شبکه و نرم افزار"></div>
+          <div class="item" data-href="{% url "category" "گرافیک" %}"><img src="{% static 'img/banner/bannermain3.png' %}" alt="گرافیک"></div>
         </div>
       </div>
     </section>
     <section>
       <div class="box-slider small-slider">
         <div class="owl-carousel owl-theme">
-          <div class="item" data-href="shabakep.html"><img src="{% static '/img/banner/bannersecond1.png' %}" alt="شبکه و نرم افزار"></div>
-          <div class="item" data-href="hesabp.html"><img src="{% static '/img/banner/bannersecond2.png' %}" alt="حسابداری"></div>
-          <div class="item" data-href="graphicp.html"><img src="{% static '/img/banner/bannersecond3.png' %}" alt="گرافیک"></div>
+          <div class="item" data-href="{% url "category" "حسابداری" %}"><img src="{% static '/img/banner/bannersecond1.png' %}" alt="شبکه و نرم افزار"></div>
+          <div class="item" data-href="{% url "category" "شبکه و نرم افزار" %}"><img src="{% static '/img/banner/bannersecond2.png' %}" alt="حسابداری"></div>
+          <div class="item" data-href="{% url "category" "گرافیک" %}"><img src="{% static '/img/banner/bannersecond3.png' %}" alt="گرافیک"></div>
         </div>
       </div>
     </section>
@@ -83,9 +83,9 @@
   <!-- second products -->
       <section id="product2" class="section-p1">
         <h2>محصولات پیشنهادی</h2>
-        <div class="listProduct" data-start="43" data-end="50" onclick="window.location.href='productpage.html';">
+        <div class="listProduct">
             <div class="item">
-            <img src="img/graphic/photoshop.jpg" alt=""/>
+            <img src="" alt=""/>
             <div class="des">
             <h5>محصول نمونه</h5>
             <h4>100,000 تومان</h4>
@@ -102,39 +102,79 @@
 
   <script>
     $(document).ready(function() {
+      // Function to update cart summary
+      function updateCartSummary() {
+          $.ajax({
+              type: 'GET',
+              url: '{% url "cart_summary" %}',
+              success: function(html) {
+                  $('.cartTab').html(html); // Update cart summary content
+                  // Reattach event handlers to the checkout and close buttons
+                  attachCheckoutHandler();
+                  attachCloseHandler();
+              },
+              error: function(xhr, errmsg, err) {
+                  // Handle error if needed
+              }
+          });
+      }
+  
+      // Function to attach event handler to checkout button
+      function attachCheckoutHandler() {
+          $('.checkout').click(function() {
+              // TODO your checkout logic here
+          });
+      }
+  
+      // Function to attach event handler to close button
+      function attachCloseHandler() {
+          $('.close').click(function() {
+              let body = document.querySelector("body");
+              body.classList.remove("showCart");
+          });
+      }
+  
       // Handle add to cart button click
       $(document).on('click', '.addCart', function(e) {
-        e.preventDefault(); // Prevent default action
-        e.stopPropagation(); // Stop event propagation to prevent parent click event
-        var productId = $(this).val(); // Get the value of the clicked button
-        $.ajax({
-          type: 'POST',
-          url: '{% url "cart_add" %}',
-          data: { 
-            product_id: productId,
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            action: 'post'
-          },
-          success: function(json) {
-            // Update cart icon or any other action you want
-            document.getElementById("icon-span").textContent = json.qty;
-          },
-          error: function(xhr, errmsg, err) {
-            // Handle error if needed
-          }
-        });
+          e.preventDefault(); // Prevent default action
+          e.stopPropagation(); // Stop event propagation to prevent parent click event
+          var productId = $(this).val(); // Get the value of the clicked button
+          $.ajax({
+              type: 'POST',
+              url: '{% url "cart_add" %}',
+              data: { 
+                  product_id: productId,
+                  csrfmiddlewaretoken: '{{ csrf_token }}',
+                  action: 'post'
+              },
+              success: function(json) {
+                  // Update cart icon or any other action you want
+                  document.getElementById("icon-span").textContent = json.qty;
+                  // Update cart summary
+                  updateCartSummary();
+              },
+              error: function(xhr, errmsg, err) {
+                  // Handle error if needed
+              }
+          });
       });
   
       // Handle navigation to product page
       $(document).on('click', '.item', function(e) {
-        // Check if the click is not from the addCart button
-        if (!$(e.target).hasClass('addCart')) {
-          var productUrl = $(this).data('href'); // Get the product URL
-          window.location.href = productUrl; // Navigate to the product page
-        }
+          // Check if the click is not from the addCart button
+          if (!$(e.target).hasClass('addCart')) {
+              var productUrl = $(this).data('href'); // Get the product URL
+              window.location.href = productUrl; // Navigate to the product page
+          }
       });
-    });
+  
+      // Attach event handlers to checkout and close buttons on initial page load
+      attachCheckoutHandler();
+      attachCloseHandler();
+  });
+  
   </script>
+  
   
   
   

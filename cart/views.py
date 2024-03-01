@@ -14,30 +14,35 @@ def cart_summary(request):
 
 
 def cart_add(request):
-	# Get the cart
-	cart = Cart(request)
-	# test for POST
-	if request.POST.get('action') == 'post':
-		# Get stuff
-		product_id = int(request.POST.get('product_id'))
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        product = get_object_or_404(Product, id=product_id)
+        cart.add(product)
+        cart_quantity = cart.__len__()
 
-		# lookup product in DB
-		product = get_object_or_404(Product, id=product_id)
-		
-		# Save to session
-		cart.add(product)
-		# Get Cart Quantity
-		cart_quantity = cart.__len__()
-
-		# Return resonse
-		# response = JsonResponse({'Product Name: ': product.name})
-		response = JsonResponse({'qty': cart_quantity})
-		return response
+        response = JsonResponse({'qty': cart_quantity})
+        return response
 
 def cart_delete(request):
-	pass
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        del cart.cart[str(product_id)]
+        request.session.modified = True
+        return JsonResponse({'message': 'Item removed from cart.'})
 
 
 def cart_update(request):
-	pass
+    cart = Cart(request)
+    
+    if request.POST.get('action') == 'post':
+        product_id = int(request.POST.get('product_id'))
+        quantity = int(request.POST.get('quantity'))
+        cart.cart[str(product_id)]['quantity'] = quantity
+        request.session.modified = True
+        return JsonResponse({'message': 'Cart updated.'})
+
 

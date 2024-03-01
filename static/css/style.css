@@ -548,9 +548,6 @@ body.showCart .cartTab {
 }
 #prodetails .single-pro-details select {
   font-family: vazir;
-  font-size: 15px;
-  display: block;
-  padding: 5px 15px;
   margin-bottom: 10px;
 }
 #prodetails .single-pro-details input {
@@ -1803,13 +1800,9 @@ footer .col .namad {
   }
   #prodetails .single-pro-details .eteleat {
     position: relative;
-    top: 12%;
-    left: 100%;
   }
   #prodetails .single-pro-details span {
     position: relative;
-    top: 10%;
-    left: 100%;
   }
   #footer .about {
     margin-right: -7px;

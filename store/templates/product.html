@@ -7,6 +7,7 @@
       </div>
       <!-- Details -->
       <div class="single-pro-details">
+        <h6> <a href="{% url "index" %}">خانه</a> / <a href="{% url "category" product.category %}"> {{product.category}} </a></h6>
         <!-- product name -->
         <h4> {{ product.name }} </h4>
         {% if product.discount %}
@@ -25,31 +26,68 @@
 
   <!--Other prodecuts-->
  
-    <script>
-      // check for button press 
-      $(document).on('click' , '#add-cart', function(e) {
-        e.preventDefault();
+  <script>
+    // check for button press 
+    $(document).on('click' , '#add-cart', function(e) {
+      e.preventDefault();
+      e.stopPropagation(); // Stop event propagation to prevent parent click event
+      $.ajax({
+        type: 'POST',
+        url: '{% url "cart_add" %}',
+        data: { 
+          product_id: $('#add-cart').val(),
+          csrfmiddlewaretoken: '{{ csrf_token }}',
+          action : 'post'
+        },
+        success : function(json) {
+          // console.log(json);
+          document.getElementById("icon-span").textContent = json.qty;
+          updateCartSummary(); // Call the function to update cart summary
+        },
+        
+        error: function(xhr, errmsg, err) {
+
+        }
+
+      });
+
+      // Function to update cart summary
+      function updateCartSummary() {
         $.ajax({
-          type: 'POST',
-          url: '{% url "cart_add" %}',
-          data: { 
-            product_id: $('#add-cart').val(),
-            csrfmiddlewaretoken: '{{ csrf_token }}',
-            action : 'post'
+          type: 'GET',
+          url: '{% url "cart_summary" %}',
+          success: function(html) {
+            $('.cartTab').html(html); // Update cart summary content
+            // Reattach event handlers to the checkout and close buttons
+            attachCheckoutHandler();
+            attachCloseHandler();
           },
-          success : function(json) {
-            // console.log(json);
-            document.getElementById("icon-span").textContent = json.qty;
-          },
-          
           error: function(xhr, errmsg, err) {
-
+            // Handle error if needed
           }
-
         });
+      }
 
-      })
-    </script>
+      // Function to attach event handler to checkout button
+      function attachCheckoutHandler() {
+        $('.checkout').click(function() {
+          // TODO your checkout logic here
+        });
+      }
+    
+      // Function to attach event handler to close button
+      function attachCloseHandler() {
+        $('.close').click(function() {
+          let body = document.querySelector("body");
+          body.classList.remove("showCart");
+        });
+      }
+
+      // Attach event handlers to checkout and close buttons on initial page load
+      attachCheckoutHandler();
+      attachCloseHandler();
+    });
+  </script>
 
 
 {% endblock %}
