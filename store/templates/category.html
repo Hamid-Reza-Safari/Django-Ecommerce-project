@@ -33,11 +33,10 @@
           <div class="item"  data-href="{% url 'product' product.id %}">
           <!-- product image -->
           <img src="{{product.image.url}}" alt=""/>
+          <span id="offer">{{ product.sale_discount }}%</span>
           <div class="des">
           <!-- product name -->
-          <h5>{{ product.name }} 
-          <span class="offer">{{ product.sale_discount }}%</span>
-          </h5>
+          <h5>{{ product.name }}</h5>
           <!-- product Price -->
           <h4 class="price-h4">
             <span class="old-price"> {{ product.formatted_price  }} </span>
@@ -77,7 +76,7 @@
         <a href="shabakep2.html"><i class="fa-solid fa-arrow-right"></i></a>
     </section>
 
-    <script>
+<script>
       $(document).ready(function() {
         // Handle add to cart button click
         $(document).on('click', '.addCart', function(e) {

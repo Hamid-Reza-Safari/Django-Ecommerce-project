@@ -7,25 +7,46 @@ class Cart():
 		self.request = request
 		# Get the current session key if it exists
 		cart = self.session.get('session_key')
+		
 
 		# If the user is new, no session key!  Create one!
 		if 'session_key' not in request.session:
 			cart = self.session['session_key'] = {}
 
 
+
 		# Make sure cart is available on all pages of site
 		self.cart = cart
 
-	def add(self, product):
-		product_id = str(product.id)
+
+	def db_add(self, product, quantity):
+		product_id = str(product)
+		product_qty = str(quantity)
 		# Logic
 		if product_id in self.cart:
 			pass
 		else:
-			self.cart[product_id] = {'price': str(product.price)}
+			#self.cart[product_id] = {'price': str(product.price)}
+			self.cart[product_id] = int(product_qty)
+
 		self.session.modified = True
 
-	
+
+
+	def add(self, product, quantity):
+		product_id = str(product.id)
+		product_qty = str(quantity)
+		# Logic
+		if product_id in self.cart:
+			pass
+		else:
+			#self.cart[product_id] = {'price': str(product.price)}
+			self.cart[product_id] = int(product_qty)
+
+		self.session.modified = True
+
+
+
 	def cart_total(self):
 		# Get product IDS
 		product_ids = self.cart.keys()
@@ -36,18 +57,24 @@ class Cart():
 		# Start counting at 0
 		total = 0
 		
-		for key in quantities.items():
+		for key, value in quantities.items():
 			# Convert key string into into so we can do math
-			key = key
+			key = int(key)
 			for product in products:
 				if product.id == key:
-					if product.is_sale:
-						total = total + (product.sale_price * 1)
+					if product.sale_discount:
+						total = total + (product.price * value)
 					else:
-						total = total + (product.price * 1)
-		return total
+						total = total + (product.price * value)
+					
+		return "{:,}".format(total)
+	
 
 
+
+	
+
+	
 	def __len__(self):
 		return len(self.cart)
 
@@ -58,8 +85,27 @@ class Cart():
 		products = Product.objects.filter(id__in=product_ids)
 
 		# Return those looked up products
-		return products	
+		return products
+
+	def get_quants(self):
+		quantities = self.cart
+		return quantities
+
+	def update(self, product, quantity):
+		product_id = str(product)
+		product_qty = int(quantity)
+
+		# Get cart
+		ourcart = self.cart
+		# Update Dictionary/cart
+		ourcart[product_id] = product_qty
+
+		self.session.modified = True
 	
+
+
+		thing = self.cart
+		return thing
 
 	def delete(self, product):
 		product_id = str(product)
@@ -68,3 +114,4 @@ class Cart():
 			del self.cart[product_id]
 
 		self.session.modified = True
+

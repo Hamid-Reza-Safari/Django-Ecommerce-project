@@ -19,7 +19,7 @@
                   {{ product.formatted_price  }} تومان
                   {% endif %}
                 </div>
-                <div class="quantity">
+                <div class="">
                   <button type="button" class="btn-close delete-product" aria-label="Close" data-index="{{ product.id }}"></button>
                 </div>
               </div>
@@ -31,16 +31,13 @@
             {% endif %}
           </div>
           <div class="cartbtn">
-            <button class="checkout">ثبت سفارش</button>
+           <a href="{% url 'cart_summary' %}" class="checkout"> <button class="checkout">جزئیات سبد خرید</button> </a>
             <button class="close">بستن</button>
-          </div>
-          <div class="total-all-price">
-            <strong>مجموع: {{ totals}} </strong>
           </div>
         </div>
       </section>
 
-      <script>
+ <script>
         // Update Cart
         $(document).on('click', '.update-cart', function(e){
             e.preventDefault();

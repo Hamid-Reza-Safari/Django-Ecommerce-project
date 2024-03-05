@@ -23,7 +23,7 @@
         <div class="row justify-content-md-center h-100">
           <div class="card-wrapper">
             <div class="brand">
-              <a href="/index.html"><img src="{% static "img/logo.png" %}" alt="logo" /></a>
+              <a href="{% url 'index' %}"><img src="{% static "img/logo.png" %}" alt="logo" /></a>
             </div>
             <div class="card fat">
               <div class="card-body">
@@ -55,7 +55,7 @@
                       required
                       data-eye
                     />
-                    <a href="forgot.html" class="float-right">رمز خود را فراموش کرده اید ؟</a>
+                    <a href="{% url 'forget' %}" class="float-right">رمز خود را فراموش کرده اید ؟</a>
                     <div class="invalid-feedback">رمز عبور الزامی است</div>
                   </div>
 

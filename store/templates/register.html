@@ -24,7 +24,7 @@
 			<div class="row justify-content-md-center h-100">
 				<div class="card-wrapper">
 					<div class="brand">
-						<a href="/index.html"><img src="{% static "img/logo.png" %}" alt="logo" /></a>
+						<a href="{% url 'index' %}"><img src="{% static "img/logo.png" %}" alt="logo" /></a>
 					</div>
 					<div class="card fat">
 						<div class="card-body">
@@ -97,7 +97,7 @@
 									</button>
 								</div>
 								<div class="mt-4 text-center">
-									از قبل حساب کاربری ساخته اید ؟ <a href="login.html">ورود</a>
+									از قبل حساب کاربری ساخته اید ؟ <a href="{% url 'login' %}">ورود</a>
 								</div>
 							</form>
 						</div>

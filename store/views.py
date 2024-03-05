@@ -98,6 +98,17 @@ def register_user(request):
         return render(request,'register.html', {'form': form})
 
 
-    
+def forget_password(request):
+    return render(request,'forget.html', {})
+
+
+
+
+
+
+def offer_page(request):
+    products = Product.objects.filter()
+    category = Category.objects.get
+    return render(request,'offer.html', {'products': products,'active_page': 'offer' , 'category': category})
 
 

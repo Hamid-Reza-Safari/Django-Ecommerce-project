@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<section id="page6-header">
+  </section>
+<section class="pb-5">
+    <div class="container">
+      <div class="row w-100">
+          <div class="col-lg-12 col-md-12 col-12 h3cart">
+              <h3 class="text-center">سبد خرید</h3>
+              <p class="mb-5 text-center">
+                {% if cart_products %}
+              <table id="shoppingCart" class="table table-condensed table-responsive">
+                  <thead>
+                      <tr>
+                          <th style="width:60%">محصول </th>
+                          <th style="width:12%">قیمت</th>
+                          <th style="width:10%">تعداد</th>
+                          <th style="width:16%"></th>
+                      </tr>
+                  </thead>
+                  {% for product in cart_products %}
+                  <tbody>
+                      <tr>
+                          <td data-th="Product" data-href="{% url 'product' product.id %}" class="item" >
+                              <div class="row">
+                                  <div class="col-md-3 text-left">
+                                      <img id="cart-image" src="{{ product.image.url }}" alt="" class="img-fluid d-none d-md-block rounded mb-2 shadow">
+                                  </div>
+                                  <div class="col-md-9 text-left mt-sm-2">
+                                      <h4>{{ product.name }}</h4>
+                                      <p class="font-weight-light">از هنرستان شهید بهشتی</p>
+                                  </div>
+                              </div>
+                          </td>
+                          {% if product.discount %}
+                          <td data-th="Price">
+                            <span class="old-price"> {{ product.formatted_price }} تومان</span>
+                            {{ product.discounted_price }} تومان 
+                          </td>
+                          {% else %}
+                          <td data-th="Price">{{  product.formatted_price }} تومان</td>
+                          {% endif %}
+                          <td data-th="Quantity">
+                            <select class="quan-form" id="select{{product.id}}">
+                            {% for key, value in quantities.items %}
+                                {% if key == product.id|slugify %}
+                            <option selected>{{ value }} عدد</option>
+                                {% endif %}
+                            {% endfor %}                                                                   
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            </select>
+                          </td>
+                          <td class="actions" data-th="">
+                              <div class="text-right">
+                                  <button id="cart-update" type="button" class="btn btn-white border-secondary bg-white btn-md mb-2 update-cart" data-index="{{product.id}}" >
+                                      <i class="fas fa-sync"></i>
+                                  </button>
+                                  <button id="delete-product" type="button" class="btn btn-white border-secondary bg-white btn-md mb-2 delete-product" data-index="{{product.id}}" >
+                                      <i class="fas fa-trash"></i>
+                                  </button>
+                              </div>
+                          </td>
+                      </tr>
+                      <tr>
+                  </tbody>
+                  {% endfor %}
+              </table>
+              {% endif %}
+              <div class="float-right text-right">
+                  <h4>مجموع قیمت :</h4>
+                  <h1>{{total}} تومان</h1>
+              </div>
+              <div class="buy">
+                <button href="catalog.html" class="normal">ثبت سفارش</button>
+                </div>
+          </div>
+      </div>
+  </div>
+  </section>
+
+
+
+  <script>
+// Update Cart
+$(document).on('click', '.update-cart', function(e){
+    e.preventDefault();
+    // grab the product id
+    var productid = $(this).data('index');
+
+    $.ajax({
+    type: 'POST',
+    url: '{% url 'cart_update' %}',
+    data: {
+      product_id: $(this).data('index'),
+      product_qty: $('#select' + productid + ' option:selected').text(),
+      csrfmiddlewaretoken: '{{ csrf_token }}',
+      action: 'post'
+    },
+    success: function(json){
+        //console.log(json)
+        //document.getElementById("cart_quantity").textContent = json.qty
+        location.reload();
+    },
+
+    error: function(xhr, errmsg, err){
+
+    }
+
+
+    });
+
+})
+
+// Delete Item From Cart
+$(document).on('click', '.delete-product', function(e){
+    e.preventDefault();
+    var productId = $(this).data('index');
+    console.log('Product ID:', productId);
+
+    $.ajax({
+        type: 'POST',
+        url: '{% url 'cart_delete' %}',
+        data: {
+            product_id: productId,
+            csrfmiddlewaretoken: '{{ csrf_token }}',
+            action: 'post'
+        },
+        success: function(json){
+            location.reload();
+        },
+        error: function(xhr, errmsg, err){
+            // Handle error
+        }
+    });
+});
+      // Handle navigation to product page only if clicked outside the cart tab
+      $(document).on('click', '.item', function(e) {
+        if (!$(this).closest('.cartTab').length) {
+            var productUrl = $(this).data('href'); // Get the product URL
+            window.location.href = productUrl; // Navigate to the product page
+        }
+    });
+
+    </script>
+
+
+{% endblock %}

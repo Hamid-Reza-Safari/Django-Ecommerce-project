@@ -1,0 +1,23 @@
+from django.contrib.sessions.models import Session
+k = Session.objects.get(pk='4qfpcoq5yu69s8gte3trn2w60nv2fx4o')
+k.get_decoded()
+
+
+
+
+
+
+
+
+def cart_delete(request):
+	cart = Cart(request)
+	if request.POST.get('action') == 'post':
+		# Get stuff
+		product_id = int(request.POST.get('product_id'))
+		# Call delete Function in Cart
+		cart.delete(product=product_id)
+		product = get_object_or_404(Product, id=product_id)
+		response = JsonResponse({'product':product_id})
+		#return redirect('cart_summary')
+		messages.success(request, f"{product.name} از سبد خرید حذف شد")
+		return response

@@ -4,7 +4,50 @@
     <section id="prodetails" class="section-p1">
       <div class="single-pro-image">
         <img src="{{ product.image.url }}" width="100%" id="MainImg" alt="product">
+        <div class="small-img-group">
+          <div class="small-img-col">
+            {% if product.image4 %}  
+            <img src="{{ product.image4.url }}" width="100%" class="small-img" alt="product"> 
+            {% else %}
+            <img src="{% static "img/default.png" %}" width="100%" class="small-img> " alt="product">
+            {% endif %}
+          </div>
+          <div class="small-img-col">
+            {% if product.image3 %}  
+            <img src="{{ product.image3.url }}" width="100%" class="small-img" alt="product"> 
+            {% else %}
+            <img src="{% static "img/default.png" %}" width="100%" class="small-img> " alt="product">
+            {% endif %}
+          </div>
+          <div class="small-img-col">
+            {% if product.image2 %}  
+            <img src="{{ product.image4.url }}" width="100%" class="small-img" alt="product"> 
+            {% else %}
+            <img src="{% static "img/default.png" %}" width="100%" class="small-img> " alt="product">
+            {% endif %}
+          </div>
+          <div class="small-img-col">
+            <img src="{{ product.image.url }}" width="100%" class="small-img" alt="product">
+          </div>
+        </div>
       </div>
+      <script>
+        var MainImg = document.getElementById('MainImg');
+        var SmallImg = document.getElementsByClassName('small-img');
+    
+        SmallImg[0].onclick = function(){
+          MainImg.src = SmallImg[0].src;
+        }
+        SmallImg[1].onclick = function(){
+          MainImg.src = SmallImg[1].src;
+        }
+        SmallImg[2].onclick = function(){
+          MainImg.src = SmallImg[2].src;
+        }
+        SmallImg[3].onclick = function(){
+          MainImg.src = SmallImg[3].src;
+        }
+      </script>
       <!-- Details -->
       <div class="single-pro-details">
         <h6> <a href="{% url "index" %}">خانه</a> / <a href="{% url "category" product.category %}"> {{product.category}} </a></h6>
@@ -17,6 +60,14 @@
         {% else %}
         <h2> {{ product.formatted_price  }} تومان</h2>
         {% endif %}
+        <!-- product add to cart -->
+          <select class="" id="qty-cart">
+            <option selected="" value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
         <button type="button" class="normal" value="{{ product.id }}" id="add-cart" >اضافه به سبد خرید</button>
         <h4 class="eteleat">اطلاعات محصول</h4>
         <!-- product description -->
@@ -36,6 +87,7 @@
         url: '{% url "cart_add" %}',
         data: { 
           product_id: $('#add-cart').val(),
+          product_qty: $('#qty-cart option:selected').text(),
           csrfmiddlewaretoken: '{{ csrf_token }}',
           action : 'post'
         },
