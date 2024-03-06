@@ -1,4 +1,5 @@
 {%extends 'base.html'%} 
+{% load static %}
   {%block content%}
  <section id="page4-header">
       <h2>ارتباط با ما</h2>
@@ -66,19 +67,19 @@
       </script>
       <div id="people" class="people">
         <div >
-          <img class="img" src="img/people/pe1.png">
+          <img class="img" src="{% static 'img/people/pe1.png' %}">
           <p><span>نماینده هنرجویان رشته کامپیوتر</span><br>
             شماره تماس : 9876543210<br>
             ایمیل : example@gmail.com</p>
         </div>
         <div >
-          <img class="img" src="img/people/pe2.jpg">
+          <img class="img" src="{% static 'img/people/pe2.jpg' %}">
           <p><span>نماینده هنرجویان رشته گرافیک</span><br>
             شماره تماس : 9876543210<br>
             ایمیل : example@gmail.com</p>
         </div>
         <div >
-          <img class="img"  src="img/people/pe3.png">
+          <img class="img"  src="{% static 'img/people/pe3.png' %}">
           <p><span>نماینده هنرجویان رشته حسابداری</span><br>
             شماره تماس : 9876543210<br>
             ایمیل : example@gmail.com</p>
