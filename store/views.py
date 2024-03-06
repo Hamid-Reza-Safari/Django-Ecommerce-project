@@ -7,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .forms import SignUpForm
 from django import forms
+from django.db.models import Q
 
 
 def category(request, foo):
@@ -26,6 +27,23 @@ def category(request, foo):
 def product(request, pk):
     product = Product.objects.get(id=pk)
     return render(request,'product.html', {'product':product})
+
+
+def search(request):
+    # check if the fill the form
+    if request.method == 'POST':
+        searched = request.POST['searched']
+        # check products db
+        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+        # test for none 
+        if not searched:
+            messages.error(request, 'محصولی با این نام یافت نشد')
+            return redirect('index')
+        else:
+                return render(request,'search.html', {'searched': searched})
+    else :
+        return render(request,'search.html', {})
+
 
 
 

@@ -73,12 +73,7 @@
   <section id="banner" class="section-m1">
     <h4>جشنواره ویژه ی نوروز شروع شد!</h4>
     <h2> تا <span>60% </span>تخفیف در جشنواره نوروز </h2>
-    <button class="banner" onclick="redirectToOfferPage()">دیدن محصولات جشنواره</button>  
-    <script>
-      function redirectToOfferPage() {
-        window.location.href = '{% url "offer" %}';;
-      }
-    </script>
+   <a href="{% url 'offer' %}"> <button class="banner" >دیدن محصولات جشنواره</button>  </a>
   </section>
   <!-- second products -->
       <section id="product1" class="section-p1">

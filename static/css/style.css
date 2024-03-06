@@ -135,6 +135,11 @@ button.black {
   background: #ffffff;
   box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
 }
+/* search button */
+#search-button {
+	border: none;
+	background-color: #f6f6f6;
+}
 
 .search-input {
   width: 400px;
@@ -156,6 +161,12 @@ button.black {
   display: none;
   justify-content: center;
   align-items: center;
+}
+
+#search-overlay .search-form {
+	position: relative;
+	align-items: center;
+	display: flex;
 }
 
 #search-box {
@@ -567,6 +578,40 @@ body.showCart .cartTab {
 #page6-header p {
   color: #ffffff;
 }
+
+
+#page7-header {
+	background-image: url("img/banner/searchbanner.png");
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 20vh;
+	display: flex;
+	justify-content: center;
+	text-align: center;
+	flex-direction: column;
+	padding: 14px;
+	font-weight: bold;
+	margin-bottom: 13px;
+}
+#page7-header h2 {
+    position: relative;
+    font-size: 70px;
+}
+#page7-header p {
+  position: relative;
+  font-size: 20px;
+  top: -20%;
+  color: white;
+}
+#page7-header h2,
+#page7-header p {
+  color: #ffffff;
+}
+
+
+
 
 
 
