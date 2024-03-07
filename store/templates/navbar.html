@@ -14,7 +14,7 @@
       {% else %}
       <li><a href="{% url "login" %}"><i class="fa-regular fa-user profile"></i></a></li>
       {% endif %}
-      <li id="search-li"><span class="search-icon material-symbols-outlined">search</span></li>
+      <li id="search-li" {% if active_page == "search" %} class="active" {% endif %}><span class="search-icon material-symbols-outlined">search</span></li>
       <li class="cart">
       <a><span id="cart_icon" class="material-symbols-outlined">
         shopping_cart

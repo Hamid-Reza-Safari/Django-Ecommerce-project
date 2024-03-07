@@ -71,54 +71,86 @@
     </section>  
  
     <section id="pagination" class="section-p1" dir="ltr">
-        <a class="active" href="shabakep.html">1</a>
-        <a href="shabakep2.html">2</a>
-        <a href="shabakep2.html"><i class="fa-solid fa-arrow-right"></i></a>
+        <a class="active" href="{% url 'category' 'category.name' %}">1</a>
+        <a href="{% url 'category' 'category.name' %}">2</a>
+        <a href="{% url 'category' 'category.name' %}"><i class="fa-solid fa-arrow-right"></i></a>
     </section>
 
-<script>
+    <script>
       $(document).ready(function() {
+        // Function to update cart summary
+        function updateCartSummary() {
+            $.ajax({
+                type: 'GET',
+                url: '{% url "cart_summary" %}',
+                success: function(html) {
+                    $('.cartTab').html(html); // Update cart summary content
+                    // Reattach event handlers to the checkout and close buttons
+                    attachCheckoutHandler();
+                    attachCloseHandler();
+                },
+                error: function(xhr, errmsg, err) {
+                    // Handle error if needed
+                }
+            });
+        }
+    
+        // Function to attach event handler to checkout button
+        function attachCheckoutHandler() {
+            $('.checkout').click(function() {
+                // TODO your checkout logic here
+            });
+        }
+    
+        // Function to attach event handler to close button
+        function attachCloseHandler() {
+            $('.close').click(function() {
+                let body = document.querySelector("body");
+                body.classList.remove("showCart");
+            });
+        }
+    
         // Handle add to cart button click
         $(document).on('click', '.addCart', function(e) {
-          e.preventDefault(); // Prevent default action
-          e.stopPropagation(); // Stop event propagation to prevent parent click event
-          var productId = $(this).val(); // Get the value of the clicked button
-          $.ajax({
-            type: 'POST',
-            url: '{% url "cart_add" %}',
-            data: { 
-              product_id: productId,
-              csrfmiddlewaretoken: '{{ csrf_token }}',
-              action: 'post'
-            },
-            success: function(json) {
-              // Update cart icon or any other action you want
-              document.getElementById("icon-span").textContent = json.qty;
-              location.reload();
-
-            },
-            error: function(xhr, errmsg, err) {
-              // Handle error if needed
-            }
-          });
+            e.preventDefault(); // Prevent default action
+            e.stopPropagation(); // Stop event propagation to prevent parent click event
+            var productid = $(this).val(); // Get the value of the clicked button
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart_add" %}',
+                data: { 
+                    product_id: productid,
+                    product_qty: 1,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json) {
+                    // Update cart icon or any other action you want
+                    document.getElementById("icon-span").textContent = json.qty;
+                    // Update cart summary
+                    updateCartSummary();
+                    location.reload();
+  
+                },
+                error: function(xhr, errmsg, err) {
+                    // Handle error if needed
+                }
+            });
         });
     
-      // Handle navigation to product page only if clicked outside the cart tab
-      $(document).on('click', '.item', function(e) {
-        if (!$(this).closest('.cartTab').length) {
-            var productUrl = $(this).data('href'); // Get the product URL
-            window.location.href = productUrl; // Navigate to the product page
-        }
+        // Handle navigation to product page only if clicked outside the cart tab
+        $(document).on('click', '.item', function(e) {
+            if (!$(this).closest('.cartTab').length) {
+                var productUrl = $(this).data('href'); // Get the product URL
+                window.location.href = productUrl; // Navigate to the product page
+            }
+        });
+    
+        // Attach event handlers to checkout and close buttons on initial page load
+        attachCheckoutHandler();
+        attachCloseHandler();
     });
-
-              // Prevent navigation when clicking on items inside the cart tab
-      $(document).on('click', '.cartTab .item', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-        // Add your logic here if needed
-    });
-      });
-    </script>
+    </script> 
 
 
 

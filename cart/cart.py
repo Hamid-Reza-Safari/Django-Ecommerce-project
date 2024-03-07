@@ -63,7 +63,8 @@ class Cart():
 			for product in products:
 				if product.id == key:
 					if product.sale_discount:
-						total = total + (product.price * value)
+						discounted_price = product.discounted_price().replace(',','')
+						total = total + (int(discounted_price) * value)
 					else:
 						total = total + (product.price * value)
 					

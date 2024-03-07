@@ -1,3 +1,4 @@
+from itertools import product
 from django.db import models
 from decimal import Decimal
 import datetime
@@ -47,6 +48,9 @@ class Product(models.Model):
     def formatted_price(self):
     # Convert the price to a string and add commas for thousands separator
         return "{:,}".format(self.price)
+
+
+        
     def __str__(self):
         return self.name
 

@@ -20,6 +20,7 @@
     <script src="https://kit.fontawesome.com/6f5725f16e.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- end scripts -->
+    
   </head>
   <body class="">
     <!-- header -->
@@ -30,15 +31,9 @@
       <a href="{% url "index" %}" id="logo" ><img src="{% static "img/logo.png" %}" class="logo" alt="logo photo"/></a>
       <!-- navbar -->
       {% include 'navbar.html' %}
-
-
-      <!-- search -->
-      {% include 'search.html' %}
-
-
       <!-- cart -->
       {% include 'cart_summary.html' %}
-
+      <!-- search -->    
       <!-- hamburger menu -->
       <div id="mobile">
         <span class="search-icon2 material-symbols-outlined">search</span>
@@ -55,7 +50,17 @@
         <span id="icon-span-mobile" class="icon-cart-span">0</span>
       </a>
       </div>
+      <div id="search-overlay">
+        <div id="search-box">
+        <span id="close-search" class="material-symbols-outlined">close</span>
+        <form class="search-form" method="POST" action="{% url 'search' %}">
+            {% csrf_token %}
+        <input class="search-input" type="text" placeholder="جستوجو کنید" name="searched">
+        <button id="search-button" type="submit" class="search-icon material-symbols-outlined">search</button>
+        </form>
+        </div>  
     </section>
+
     <!-- end headers -->
 
     {% if messages %}

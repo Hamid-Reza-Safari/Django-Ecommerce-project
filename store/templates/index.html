@@ -26,8 +26,8 @@
       <h2>محصولات پر فروش</h2>
       <p>همراه با ضمانت 7 روزه!</p>
       <div class="listProduct">
-        {% for product in products %}
-          {% if product.discount %}
+        {% for product in products|slice:":12" %}
+        {% if product.discount %}
             <!-- discount product -->
           <div class="item"  data-href="{% url 'product' product.id %}">
           <!-- product image -->
@@ -73,14 +73,14 @@
   <section id="banner" class="section-m1">
     <h4>جشنواره ویژه ی نوروز شروع شد!</h4>
     <h2> تا <span>60% </span>تخفیف در جشنواره نوروز </h2>
-   <a href="{% url 'offer' %}"> <button class="banner" >دیدن محصولات جشنواره</button>  </a>
+   <a href="{% url 'offer' %}"> <span class="offer-banner-button" >دیدن محصولات جشنواره</span>  </a>
   </section>
   <!-- second products -->
       <section id="product1" class="section-p1">
         <h2>محصولات پیشنهادی</h2>
         <div class="listProduct">
-          {% for product in products %}
-            {% if product.discount %}
+          {% for product in products|slice:":8" %}
+          {% if product.discount %}
               <!-- discount product -->
             <div class="item"  data-href="{% url 'product' product.id %}">
             <!-- product image -->

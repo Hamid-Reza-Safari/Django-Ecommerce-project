@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static%}
 
 {% block content %}
 <section id="page6-header">
@@ -71,7 +71,7 @@
                   </tbody>
                   {% endfor %}
               </table>
-              {% endif %}
+
               <div class="float-right text-right">
                   <h4>مجموع قیمت :</h4>
                   <h1>{{total}} تومان</h1>
@@ -79,6 +79,20 @@
               <div class="buy">
                 <button href="catalog.html" class="normal">ثبت سفارش</button>
                 </div>
+                {% else %}
+                <img src="{% static "img/bigshoppingcart.png" %}" class="bigCart"/>
+                <h3 class="text-center">سبد خرید شما خالی است.</h3>
+                <style>
+
+                .bigCart {
+                    margin-top: 50px;
+                    width: 250px;
+                    height: 250px;
+
+                }
+                </style>
+                <br>
+                {% endif %}
           </div>
       </div>
   </div>

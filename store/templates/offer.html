@@ -18,14 +18,20 @@
           {% if product.category.name == 'شبکه و نرم افزار' %}
             {% if product.discount %}
               <!-- discount product -->
-            <div class="item"  data-href="{% url 'product' product.id %}">
+            <div class="item"  data-href="{% url 'product' product.id %}"> <a>
             <!-- product image -->
             <img src="{{product.image.url}}" alt=""/>
             <span id="offer">{{ product.sale_discount }}%</span>
             <div class="des">
             <!-- product name -->
-            <h5>{{ product.name }} 
-            </h5>
+            <a href="{% url 'product' product.id %}"> <h5>{{ product.name }} 
+            </h5> </a>
+            <style>
+              a{
+                text-decoration: none;
+                display: inline-block;
+              }
+            </style>
             <!-- product Price -->
             <h4 class="price-h4">
               <span class="old-price"> {{ product.formatted_price  }} </span>
@@ -58,8 +64,14 @@
           <span id="offer">{{ product.sale_discount }}%</span>
           <div class="des">
           <!-- product name -->
-          <h5>{{ product.name }} 
-          </h5>
+          <a href="{% url 'product' product.id %}"> <h5>{{ product.name }} 
+          </h5> </a>
+          <style>
+            a{
+              text-decoration: none;
+              display: inline-block;
+            }
+          </style>
           <!-- product Price -->
           <h4 class="price-h4">
             <span class="old-price"> {{ product.formatted_price  }} </span>
@@ -92,8 +104,14 @@
             <span id="offer">{{ product.sale_discount }}%</span>
             <div class="des">
             <!-- product name -->
-            <h5>{{ product.name }} 
-            </h5>
+            <a href="{% url 'product' product.id %}"> <h5>{{ product.name }} 
+            </h5> </a>
+            <style>
+              a{
+                text-decoration: none;
+                display: inline-block;
+              }
+            </style>
             <!-- product Price -->
             <h4 class="price-h4">
               <span class="old-price"> {{ product.formatted_price  }} </span>
@@ -112,5 +130,79 @@
         </div>
     </section> 
  
-
+    <script>
+      $(document).ready(function() {
+        // Function to update cart summary
+        function updateCartSummary() {
+            $.ajax({
+                type: 'GET',
+                url: '{% url "cart_summary" %}',
+                success: function(html) {
+                    $('.cartTab').html(html); // Update cart summary content
+                    // Reattach event handlers to the checkout and close buttons
+                    attachCheckoutHandler();
+                    attachCloseHandler();
+                },
+                error: function(xhr, errmsg, err) {
+                    // Handle error if needed
+                }
+            });
+        }
+    
+        // Function to attach event handler to checkout button
+        function attachCheckoutHandler() {
+            $('.checkout').click(function() {
+                // TODO your checkout logic here
+            });
+        }
+    
+        // Function to attach event handler to close button
+        function attachCloseHandler() {
+            $('.close').click(function() {
+                let body = document.querySelector("body");
+                body.classList.remove("showCart");
+            });
+        }
+    
+        // Handle add to cart button click
+        $(document).on('click', '.addCart', function(e) {
+            e.preventDefault(); // Prevent default action
+            e.stopPropagation(); // Stop event propagation to prevent parent click event
+            var productid = $(this).val(); // Get the value of the clicked button
+            $.ajax({
+                type: 'POST',
+                url: '{% url "cart_add" %}',
+                data: { 
+                    product_id: productid,
+                    product_qty: 1,
+                    csrfmiddlewaretoken: '{{ csrf_token }}',
+                    action: 'post'
+                },
+                success: function(json) {
+                    // Update cart icon or any other action you want
+                    document.getElementById("icon-span").textContent = json.qty;
+                    // Update cart summary
+                    updateCartSummary();
+                    location.reload();
+  
+                },
+                error: function(xhr, errmsg, err) {
+                    // Handle error if needed
+                }
+            });
+        });
+    
+        // Handle navigation to product page only if clicked outside the cart tab
+        $(document).on('click', '.item', function(e) {
+            if (!$(this).closest('.cartTab').length) {
+                var productUrl = $(this).data('href'); // Get the product URL
+                window.location.href = productUrl; // Navigate to the product page
+            }
+        });
+    
+        // Attach event handlers to checkout and close buttons on initial page load
+        attachCheckoutHandler();
+        attachCloseHandler();
+    });
+    </script> 
   {% endblock %}

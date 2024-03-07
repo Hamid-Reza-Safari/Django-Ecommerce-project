@@ -26,23 +26,31 @@ def category(request, foo):
 
 def product(request, pk):
     product = Product.objects.get(id=pk)
-    return render(request,'product.html', {'product':product})
+    products = Product.objects.all()
+    return render(request,'product.html', {'products': products,'product':product})
 
 
 def search(request):
-    # check if the fill the form
+    # Check if the form is submitted via POST method
     if request.method == 'POST':
-        searched = request.POST['searched']
-        # check products db
-        searched = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
-        # test for none 
-        if not searched:
-            messages.error(request, 'محصولی با این نام یافت نشد')
-            return redirect('index')
+        # Get the searched query from the form
+        searched = request.POST.get('searched', '').strip()  # Get the input and remove leading/trailing spaces
+        # Check if the input is not empty
+        if searched:
+            # Perform the search operation only if the input is not empty
+            results = Product.objects.filter(Q(name__icontains=searched) | Q(description__icontains=searched))
+            # Check if there are no results
+            if not results:
+                messages.error(request, 'محصولی با این نام یافت نشد')
+                return redirect('index')
+            else:
+                return render(request, 'search.html', {'searched': results})
         else:
-                return render(request,'search.html', {'searched': searched})
-    else :
-        return render(request,'search.html', {})
+            # If the input is empty go send a message
+            return redirect('index')
+    # Render the search page template if the request method is not POST or if the input is empty
+    return render(request, 'search.html', {'active_page': 'search'})   
+
 
 
 
