@@ -111,7 +111,7 @@ def register_user(request):
                     elif 'short' in error:
                         messages.error(request, 'رمز عبور باید حداقل ۸ کاراکتر داشته باشد.')
                     elif 'common' in error:
-                        messages.error(request, 'این رمز عبور بسیار ساده است.')
+                        messages.error(request, 'این رمز عبور بسیار ساده است.') 
                     elif 'numeric' in error:
                         messages.error(request, 'این رمز فقط شامل اعداد است لطفا از کلمات نیز استفاده کنید')
 
