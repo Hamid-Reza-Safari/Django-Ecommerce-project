@@ -3,12 +3,14 @@ from django.db import models
 from decimal import Decimal
 import datetime
 
+from flask.config import T
+
 
 
 # Products category
 class Category(models.Model):
     name = models.CharField(max_length=50)
-
+    title = models.CharField(max_length=100, blank=True , null=True)
     def __str__(self):
         return self.name
     class Meta:
@@ -34,7 +36,7 @@ class Product(models.Model):
     image4 = models.ImageField(upload_to='uploads/product/', blank=True)
     # discount stuff (takhfif)
     discount = models.BooleanField(default=False)
-    sale_discount = models.DecimalField(default=0 ,max_digits=3, decimal_places=0 , blank = True , null = True)
+    sale_discount = models.DecimalField(default=0 ,max_digits=3, decimal_places=0 , blank = True , null = True , verbose_name="Discount Percentage")
     
     def discounted_price(self):
         if self.discount:

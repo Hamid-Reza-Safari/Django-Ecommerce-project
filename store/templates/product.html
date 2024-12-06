@@ -50,7 +50,7 @@
       </script>
       <!-- Details -->
       <div class="single-pro-details">
-        <h6> <a href="{% url "index" %}">خانه</a> / <a href="{% url "category" product.category %}"> {{product.category}} </a></h6>
+        <h6> <a href="{% url "index" %}">خانه</a> / <a href="{% url "category" product.category %}"> {{product.category.title}} </a></h6>
         <!-- product name -->
         <h4> {{ product.name }} </h4>
         {% if product.discount %}

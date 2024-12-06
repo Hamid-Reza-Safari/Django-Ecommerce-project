@@ -3,26 +3,26 @@
 {% block content %}
 
     <!-- page1-header -->
-    {% if category.name == 'شبکه و نرم افزار' %}
+    {% if category.name == 'shabake' %}
     <section id="page1-header">
         <h2>شبکه و نرم افزار</h2>
     </section>
-    {% elif category.name == 'حسابداری' %}
+    {% elif category.name == 'hesabdari' %}
     <section id="page3-header">
       <h2>حسابداری</h2>
     </section>
-    {% elif category.name == 'گرافیک' %}
+    {% elif category.name == 'geraphic' %}
     <section id="page2-header">
       <h2>گرافیک</h2>
     </section>
     {% endif %}
     <!-- products -->
     <section id="product1" class="section-p1">
-      {% if category.name == 'شبکه و نرم افزار' %}
+      {% if category.name == 'shabake' %}
       <h2>محصولات رشته شبکه و نرم افزار</h2>
-      {% elif category.name == 'حسابداری' %}
+      {% elif category.name == 'hesabdari' %}
         <h2>محصولات رشته حسابداری</h2>
-      {% elif category.name == 'گرافیک' %}
+      {% elif category.name == 'geraphic' %}
       <h2>محصولات رشته گرافیک</h2>
       {% endif %}
 
